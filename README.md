@@ -1,1 +1,1 @@
-# hikout
+# hikeout
