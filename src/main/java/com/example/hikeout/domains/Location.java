@@ -2,10 +2,14 @@ package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,11 +18,23 @@ import java.util.List;
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "location_sequence",
+            sequenceName = "location_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "location_sequence"
+    )
     @Column(name = "id")
+    @Getter
+    @Setter
     private Long id;
 
     @Column(name = "name")
+    @Getter
+    @Setter
     private String name;
 
     @Column(name = "description")
@@ -32,13 +48,13 @@ public class Location {
     private String icon;
 
     @Column(name = "works_from")
-    private LocalDateTime works_from;
+    private LocalDateTime worksFrom;
 
     @Column(name = "works_till")
-    private LocalDateTime works_till;
+    private LocalDateTime worksTill;
 
     @Column(name = "is_active")
-    private Boolean is_active;
+    private Boolean isActive;
 
     @Column(name = "latitude")
     private Double lat;
@@ -47,7 +63,7 @@ public class Location {
     private Double lon;
 
     @OneToMany(mappedBy = "price_items")
-    private List<PriceItem> price_items;
+    private List<PriceItem> priceItems;
 
     @OneToMany(mappedBy = "favorites")
     private List<Favorite> favorites;

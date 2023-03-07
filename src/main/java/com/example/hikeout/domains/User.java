@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static jakarta.persistence.GenerationType.SEQUENCE;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -14,7 +16,15 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "user_sequence"
+    )
     @Column(name = "id")
     private Long id;
 
@@ -25,19 +35,19 @@ public class User {
     private String password;
 
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
 
     @Column(name = "phone")
     private String phone;
 
     @Column(name = "created_at")
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Column(name = "modified_at")
-    private LocalDateTime modified_at;
+    private LocalDateTime modifiedAt;
 
     @OneToMany(mappedBy = "favorites")
     private List<Review> reviews;
