@@ -2,6 +2,7 @@ package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -24,22 +25,28 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
             generator = "review_sequence"
     )
     @Column(name = "id")
-    private int id;
+    @Getter
+    private Long id;
 
     @Column(name = "rate")
+    @Getter
     private int rating;
 
     @Column(name = "review")
+    @Getter
     private String content;
 
     @Column(name = "date")
+    @Getter
     private LocalDateTime date;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
+    @Getter
     private Location location;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @Getter
     private User user;
 }

@@ -3,6 +3,7 @@ package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -24,13 +25,16 @@ public class Favorite {
             generator = "favorite_sequence"
     )
     @Column(name = "id")
-    private int id;
+    @Getter
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @Getter
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
+    @Getter
     private Location location;
 }

@@ -62,13 +62,13 @@ public class Location {
     @Column(name = "longitude")
     private Double lon;
 
-    @OneToMany(mappedBy = "price_items")
+    @OneToMany(mappedBy = "id")
     private List<PriceItem> priceItems;
 
-    @OneToMany(mappedBy = "favorites")
+    @OneToMany(mappedBy = "id")
     private List<Favorite> favorites;
 
-    @OneToMany(mappedBy = "reviews")
+    @OneToMany(mappedBy = "id")
     private List<Review> reviews;
 }
 

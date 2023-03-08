@@ -2,6 +2,7 @@ package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -23,9 +24,19 @@ public class PriceItem {
             generator = "price_item_sequence"
     )
     @Column(name = "id")
-    private int id;
+    @Getter
+    private Long id;
+
+    @Column(name = "name")
+    @Getter
+    private String name;
+
+    @Column(name = "price")
+    @Getter
+    private int price;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
+    @Getter
     Location location;
 }

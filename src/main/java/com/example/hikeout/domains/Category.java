@@ -2,6 +2,7 @@ package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -25,14 +26,18 @@ public class Category {
             generator = "category_sequence"
     )
     @Column(name = "id")
+    @Getter
     private Long id;
 
     @Column(name = "name")
+    @Getter
     private String name;
 
     @Column(name = "icon")
+    @Getter
     private String icon;
 
-    @OneToMany(mappedBy = "locations")
+    @OneToMany(mappedBy = "id")
+    @Getter
     private List<Location> locations;
 }

@@ -2,6 +2,7 @@ package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -26,29 +27,38 @@ public class User {
             generator = "user_sequence"
     )
     @Column(name = "id")
+    @Getter
     private Long id;
 
     @Column(name = "email")
+    @Getter
     private String email;
 
     @Column(name = "password")
+    @Getter
     private String password;
 
     @Column(name = "first_name")
+    @Getter
     private String firstName;
 
     @Column(name = "last_name")
+    @Getter
     private String lastName;
 
     @Column(name = "phone")
+    @Getter
     private String phone;
 
     @Column(name = "created_at")
+    @Getter
     private LocalDateTime createdAt;
 
     @Column(name = "modified_at")
+    @Getter
     private LocalDateTime modifiedAt;
 
-    @OneToMany(mappedBy = "favorites")
+    @OneToMany(mappedBy = "id")
+    @Getter
     private List<Review> reviews;
 }
