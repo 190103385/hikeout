@@ -1,13 +1,11 @@
 package com.example.hikeout.dto;
 
-import com.example.hikeout.domains.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-@NoArgsConstructor
+
 @AllArgsConstructor
-public class LocationDto {
+public class PriceItemDto {
+
     @Getter
     private Long id;
 
@@ -15,5 +13,8 @@ public class LocationDto {
     private String name;
 
     @Getter
-    private Long categoryId;
+    private int price;
+
+    @Getter
+    private Long locationId;
 }
