@@ -5,10 +5,13 @@ import com.example.hikeout.dto.LocationDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LocationToLocationDto {
+public class LocationToDto {
 
     public LocationDto toLocationDto(Location location) {
-        return new LocationDto(location.getId(), location.getName());
+        return new LocationDto(
+                location.getId(),
+                location.getName(),
+                location.getId());
     }
 
 }
