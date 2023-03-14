@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @NoArgsConstructor
@@ -33,8 +35,7 @@ public class Favorite {
     @Getter
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "id")
     @Getter
-    private Location location;
+    private List<Location> locations;
 }

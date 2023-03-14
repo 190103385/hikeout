@@ -1,5 +1,6 @@
 package com.example.hikeout.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,12 +11,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
-
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "locations")
 public class Location {
+
+    public Location(Long id, String name) {}
 
     @Id
     @SequenceGenerator(
@@ -29,46 +30,56 @@ public class Location {
     )
     @Column(name = "id")
     @Getter
-    @Setter
     private Long id;
 
     @Column(name = "name")
     @Getter
-    @Setter
     private String name;
 
     @Column(name = "description")
+    @Getter
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+    @Getter
     private Category category;
 
     @Column(name = "icon")
+    @Getter
     private String icon;
 
     @Column(name = "works_from")
-    private LocalDateTime worksFrom;
+    @Getter
+    private String worksFrom;
 
     @Column(name = "works_till")
-    private LocalDateTime worksTill;
+    @Getter
+    private String worksTill;
 
     @Column(name = "is_active")
+    @Getter
     private Boolean isActive;
 
     @Column(name = "latitude")
+    @Getter
     private Double lat;
 
     @Column(name = "longitude")
+    @Getter
     private Double lon;
 
     @OneToMany(mappedBy = "id")
+    @Getter
     private List<PriceItem> priceItems;
 
-    @OneToMany(mappedBy = "id")
-    private List<Favorite> favorites;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorites_id", referencedColumnName = "id")
+    @Getter
+    private Favorite favorite;
 
     @OneToMany(mappedBy = "id")
+    @Getter
     private List<Review> reviews;
 }
 

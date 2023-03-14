@@ -1,8 +1,11 @@
-package com.example.hikeout.mappers;
+package com.example.hikeout.dto.mappers;
 
 import com.example.hikeout.domains.Category;
 import com.example.hikeout.dto.CategoryDto;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class CategoryToDto {
@@ -12,7 +15,6 @@ public class CategoryToDto {
                 category.getId(),
                 category.getName(),
                 category.getIcon(),
-                category.getLocations()
-        );
+                category.getLocations());
     }
 }

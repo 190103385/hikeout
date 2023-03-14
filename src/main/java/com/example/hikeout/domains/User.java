@@ -61,4 +61,8 @@ public class User {
     @OneToMany(mappedBy = "id")
     @Getter
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "id")
+    @Getter
+    private List<Favorite> favorites;
 }
