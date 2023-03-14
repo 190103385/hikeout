@@ -20,10 +20,13 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//	implementation("org.springframework.boot:spring-boot-starter-jdbc")
-//    implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+//  implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0")
+//    implementation("org.flywaydb:flyway-core")
+//    implementation("org.hibernate:hibernate-core:4.1.4.Final")
+//    implementation("org.hibernate:hibernate-validator:6.0.16.Final")
 
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")

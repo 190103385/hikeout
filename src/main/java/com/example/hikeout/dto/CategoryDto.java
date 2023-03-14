@@ -1,13 +1,16 @@
 package com.example.hikeout.dto;
 
-import com.example.hikeout.domains.Category;
+import com.example.hikeout.domains.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-@NoArgsConstructor
+
+import java.util.List;
+
 @AllArgsConstructor
-public class LocationDto {
+@NoArgsConstructor
+public class CategoryDto {
+
     @Getter
     private Long id;
 
@@ -15,5 +18,9 @@ public class LocationDto {
     private String name;
 
     @Getter
-    private Long categoryId;
+    private String icon;
+
+    @Getter
+    private List<Location> locations;
+
 }
