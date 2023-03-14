@@ -1,4 +1,4 @@
-package com.example.hikeout.mappers;
+package com.example.hikeout.dto.mappers;
 
 import com.example.hikeout.domains.User;
 import com.example.hikeout.dto.UserDto;
@@ -16,7 +16,8 @@ public class UserToDto {
                 user.getPhone(),
                 user.getCreatedAt(),
                 user.getModifiedAt(),
-                user.getReviews()
+                user.getReviews(),
+                user.getFavorites()
         );
     }
 }

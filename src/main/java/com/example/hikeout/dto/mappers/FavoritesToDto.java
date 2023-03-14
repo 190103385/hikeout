@@ -1,4 +1,4 @@
-package com.example.hikeout.mappers;
+package com.example.hikeout.dto.mappers;
 
 import com.example.hikeout.domains.Favorite;
 import com.example.hikeout.dto.FavoritesDto;
@@ -10,6 +10,6 @@ public class FavoritesToDto {
         return new FavoritesDto(
                 favorite.getId(),
                 favorite.getUser().getId(),
-                favorite.getLocation().getId());
+                favorite.getLocations());
     }
 }
