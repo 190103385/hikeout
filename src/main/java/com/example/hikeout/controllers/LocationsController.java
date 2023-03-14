@@ -17,22 +17,26 @@ public class LocationsController {
     private ILocationsService service;
 
     @GetMapping
-    public List<LocationDto> getAllLocations() {
+    public List<LocationDto> getLocations(
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "name", required = false) String name
+    ) {
+        if(category != null && name != null) {
+            return service.getLocationsByCategoryAndName(category, name);
+        }
+        else if(category != null) {
+            return service.getLocationsByCategory(category);
+        }
+        else if(name != null) {
+            return service.getLocationsByLocationName(name);
+        }
+
         return service.getAllLocations();
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public LocationDto getLocationById(@PathVariable Long id) {
         return service.getLocationById(id);
     }
 
-    @GetMapping("/category/{category}")
-    public List<LocationDto> getLocationsByCategory(@PathVariable String category) {
-        return service.getLocationsByCategory(category);
-    }
-
-    @GetMapping("/name/{name}")
-    public List<LocationDto> getLocationsByLocationName(@PathVariable String name) {
-        return service.getLocationsByLocationName(name);
-    }
 }

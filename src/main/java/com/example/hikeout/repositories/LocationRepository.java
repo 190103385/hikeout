@@ -10,9 +10,9 @@ import java.util.Optional;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
 
-    Location getById(Long id);
-
     List<Location> getByCategoryName(String category);
 
     List<Location> getByNameContainsIgnoreCase(String name);
+
+    List<Location> getByCategoryNameAndName(String category, String name);
 }

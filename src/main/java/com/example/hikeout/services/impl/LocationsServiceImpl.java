@@ -48,4 +48,11 @@ public class LocationsServiceImpl implements ILocationsService {
 
         return locations.stream().map(mapper::toLocationDto).toList();
     }
+
+    @Override
+    public List<LocationDto> getLocationsByCategoryAndName(String cateogry, String name) {
+        List<Location> locations = locationRepository.getByCategoryNameAndName(cateogry, name);
+
+        return locations.stream().map(mapper::toLocationDto).toList();
+    }
 }

@@ -13,4 +13,6 @@ public interface ILocationsService {
     List<LocationDto> getLocationsByCategory(String category);
 
     List<LocationDto> getLocationsByLocationName(String name);
+
+    List<LocationDto> getLocationsByCategoryAndName(String category, String name);
 }
