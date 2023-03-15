@@ -9,4 +9,8 @@ public interface IPriceItemsService {
     List<PriceItemDto> findAll();
 
     List<PriceItemDto> findAllByLocationId(Long id);
+
+    int getMaxAmount(Long id);
+
+    int getMinAmount(Long id);
 }

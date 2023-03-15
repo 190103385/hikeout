@@ -25,4 +25,14 @@ public class PriceItemsController {
     public List<PriceItemDto> findAllByLocationId(@PathVariable Long id) {
         return service.findAllByLocationId(id);
     }
+
+    @GetMapping("/{id}/max")
+    public int getMaxAmount(@PathVariable Long id) {
+        return service.getMaxAmount(id);
+    }
+
+    @GetMapping("/{id}/min")
+    public int getMinAmount(@PathVariable Long id) {
+        return service.getMinAmount(id);
+    }
 }

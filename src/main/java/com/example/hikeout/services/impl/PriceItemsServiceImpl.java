@@ -26,4 +26,16 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
     public List<PriceItemDto> findAllByLocationId(Long id) {
         return repository.findAllByLocationId(id).stream().map(mapper::toPriceItemDto).toList();
     }
+
+    @Override
+    public int getMaxAmount(Long id) {
+        return repository.findPriceItemByLocationIdOrderByPriceDesc(id).get(0).getPrice();
+    }
+
+    @Override
+    public int getMinAmount(Long id) {
+        List<PriceItem> items = repository.findPriceItemByLocationIdOrderByPriceDesc(id);
+
+        return items.get(items.size() - 1).getPrice();
+    }
 }
