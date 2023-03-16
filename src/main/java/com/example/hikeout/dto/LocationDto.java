@@ -1,22 +1,17 @@
 package com.example.hikeout.dto;
 
-import com.example.hikeout.domains.Category;
-import com.example.hikeout.domains.Favorite;
 import com.example.hikeout.domains.PriceItem;
 import com.example.hikeout.domains.Review;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class LocationDto {
-
-    public LocationDto(Long id, String name) { }
 
     @Getter
     private Long id;

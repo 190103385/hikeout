@@ -2,7 +2,6 @@ package com.example.hikeout.dto;
 
 import com.example.hikeout.domains.Favorite;
 import com.example.hikeout.domains.Review;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

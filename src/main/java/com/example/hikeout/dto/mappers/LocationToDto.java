@@ -3,7 +3,6 @@ package com.example.hikeout.dto.mappers;
 import com.example.hikeout.domains.Location;
 import com.example.hikeout.dto.LocationDto;
 import com.example.hikeout.repositories.PriceItemsRepository;
-import com.example.hikeout.services.IPriceItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

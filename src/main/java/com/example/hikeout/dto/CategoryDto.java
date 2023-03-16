@@ -1,7 +1,7 @@
 package com.example.hikeout.dto;
 
 import com.example.hikeout.domains.Location;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class CategoryDto {
     private String icon;
 
     @Getter
-    @JsonIgnoreProperties(value = "category")
+    @JsonIgnore
     private List<Location> locations;
 
 }

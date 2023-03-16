@@ -13,5 +13,5 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
 
     List<Location> getByNameContainsIgnoreCase(String name);
 
-    List<Location> getByCategoryNameAndName(String category, String name);
+    List<Location> getByCategoryNameAndNameContainsIgnoreCase(String category, String name);
 }

@@ -4,9 +4,6 @@ import com.example.hikeout.domains.Category;
 import com.example.hikeout.dto.CategoryDto;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-import java.util.Objects;
-
 @Component
 public class CategoryToDto {
 

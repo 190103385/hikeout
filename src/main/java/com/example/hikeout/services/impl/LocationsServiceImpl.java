@@ -51,7 +51,7 @@ public class LocationsServiceImpl implements ILocationsService {
 
     @Override
     public List<LocationDto> getLocationsByCategoryAndName(String cateogry, String name) {
-        List<Location> locations = locationRepository.getByCategoryNameAndName(cateogry, name);
+        List<Location> locations = locationRepository.getByCategoryNameAndNameContainsIgnoreCase(cateogry, name);
 
         return locations.stream().map(mapper::toLocationDto).toList();
     }

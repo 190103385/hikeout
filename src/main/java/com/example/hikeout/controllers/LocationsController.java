@@ -1,10 +1,8 @@
 package com.example.hikeout.controllers;
 
-import com.example.hikeout.domains.Location;
 import com.example.hikeout.dto.LocationDto;
 import com.example.hikeout.services.ILocationsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
