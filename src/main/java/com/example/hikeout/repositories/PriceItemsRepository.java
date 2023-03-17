@@ -9,6 +9,4 @@ import java.util.List;
 @Repository
 public interface PriceItemsRepository extends JpaRepository<PriceItem, Long> {
     List<PriceItem> findAllByLocationId(Long id);
-
-    List<PriceItem> findPriceItemByLocationIdOrderByPriceDesc(Long id);
 }

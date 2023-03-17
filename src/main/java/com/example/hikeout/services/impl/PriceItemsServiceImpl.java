@@ -29,13 +29,37 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
 
     @Override
     public int getMaxAmount(Long id) {
-        return repository.findPriceItemByLocationIdOrderByPriceDesc(id).get(0).getPrice();
+        List<PriceItemDto> priceItems = findAllByLocationId(id);
+
+        if(priceItems.isEmpty()) {
+            return 0;
+        }
+
+        int sum = 0;
+
+        for(PriceItemDto item : priceItems) {
+            sum += item.getPrice();
+        }
+
+        return sum;
     }
 
     @Override
     public int getMinAmount(Long id) {
-        List<PriceItem> items = repository.findPriceItemByLocationIdOrderByPriceDesc(id);
+        List<PriceItemDto> priceItems = findAllByLocationId(id);
 
-        return items.get(items.size() - 1).getPrice();
+        if(priceItems.isEmpty()) {
+            return 0;
+        }
+
+        int min = priceItems.get(0).getPrice();
+
+        for(PriceItemDto item : priceItems) {
+            if(min > item.getPrice()) {
+                min = item.getPrice();
+            }
+        }
+
+        return min;
     }
 }
