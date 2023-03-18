@@ -1,6 +1,5 @@
 package com.example.hikeout.services.impl;
 
-import com.example.hikeout.domains.PriceItem;
 import com.example.hikeout.dto.PriceItemDto;
 import com.example.hikeout.dto.mappers.PriceItemToDto;
 import com.example.hikeout.repositories.PriceItemsRepository;
