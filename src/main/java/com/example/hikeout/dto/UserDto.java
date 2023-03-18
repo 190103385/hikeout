@@ -1,5 +1,6 @@
 package com.example.hikeout.dto;
 
+import com.example.hikeout.domains.Favorite;
 import com.example.hikeout.domains.Review;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,4 +37,7 @@ public class UserDto {
 
     @Getter
     private List<Review> reviews;
+
+    @Getter
+    private List<Favorite> favorites;
 }

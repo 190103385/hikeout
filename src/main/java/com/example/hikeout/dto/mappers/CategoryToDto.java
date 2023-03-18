@@ -1,4 +1,4 @@
-package com.example.hikeout.mappers;
+package com.example.hikeout.dto.mappers;
 
 import com.example.hikeout.domains.Category;
 import com.example.hikeout.dto.CategoryDto;
@@ -12,7 +12,6 @@ public class CategoryToDto {
                 category.getId(),
                 category.getName(),
                 category.getIcon(),
-                category.getLocations()
-        );
+                category.getLocations());
     }
 }

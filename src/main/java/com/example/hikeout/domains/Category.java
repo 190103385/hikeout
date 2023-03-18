@@ -40,4 +40,5 @@ public class Category {
     @OneToMany(mappedBy = "id")
     @Getter
     private List<Location> locations;
+
 }

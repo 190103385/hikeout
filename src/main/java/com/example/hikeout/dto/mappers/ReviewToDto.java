@@ -1,4 +1,4 @@
-package com.example.hikeout.mappers;
+package com.example.hikeout.dto.mappers;
 
 import com.example.hikeout.domains.Review;
 import com.example.hikeout.dto.ReviewDto;

@@ -3,10 +3,7 @@ package com.example.hikeout.controllers;
 import com.example.hikeout.dto.LocationDto;
 import com.example.hikeout.services.ILocationsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,8 +15,26 @@ public class LocationsController {
     private ILocationsService service;
 
     @GetMapping
-    public List<LocationDto> getAllLocations() {
+    public List<LocationDto> getLocations(
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "name", required = false) String name
+    ) {
+        if(category != null && name != null) {
+            return service.getLocationsByCategoryAndName(category, name);
+        }
+        else if(category != null) {
+            return service.getLocationsByCategory(category);
+        }
+        else if(name != null) {
+            return service.getLocationsByLocationName(name);
+        }
+
         return service.getAllLocations();
+    }
+
+    @GetMapping("/{id}")
+    public LocationDto getLocationById(@PathVariable Long id) {
+        return service.getLocationById(id);
     }
 
 }

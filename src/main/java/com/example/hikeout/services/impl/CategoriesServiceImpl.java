@@ -1,7 +1,7 @@
 package com.example.hikeout.services.impl;
 
 import com.example.hikeout.dto.CategoryDto;
-import com.example.hikeout.mappers.CategoryToDto;
+import com.example.hikeout.dto.mappers.CategoryToDto;
 import com.example.hikeout.repositories.CategoryRepository;
 import com.example.hikeout.services.ICategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;

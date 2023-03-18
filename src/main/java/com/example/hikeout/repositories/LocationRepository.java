@@ -8,6 +8,10 @@ import java.util.List;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
-    @Override
-    List<Location> findAll();
+
+    List<Location> getByCategoryName(String category);
+
+    List<Location> getByNameContainsIgnoreCase(String name);
+
+    List<Location> getByCategoryNameAndNameContainsIgnoreCase(String category, String name);
 }
