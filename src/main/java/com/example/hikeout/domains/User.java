@@ -1,11 +1,14 @@
 package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -13,8 +16,12 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(
+        name = "users",
+        uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) }
+)
+@Builder
+public class User implements UserDetails {
 
     @Id
     @SequenceGenerator(
@@ -30,12 +37,12 @@ public class User {
     @Getter
     private Long id;
 
-    @Column(name = "email")
-    @Getter
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
     @Getter
+    @Setter
     private String password;
 
     @Column(name = "first_name")
@@ -58,11 +65,58 @@ public class User {
     @Getter
     private LocalDateTime modifiedAt;
 
+    @Column(name = "is_locked")
+    @Getter
+    private Boolean isLocked;
+
+    @Column(name = "is_enabled")
+    @Getter
+    private Boolean isEnabled;
+
+    @Column(name = "role")
+    @Getter
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
     @OneToMany(mappedBy = "id")
     @Getter
+    @Setter
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "id")
     @Getter
+    @Setter
     private List<Favorite> favorites;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
+
+        return Collections.singletonList(authority);
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !isLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
+    }
 }

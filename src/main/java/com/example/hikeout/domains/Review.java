@@ -12,7 +12,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "reviews")public class Review {
+@Table(name = "reviews")
+public class Review {
 
     @Id
     @SequenceGenerator(
