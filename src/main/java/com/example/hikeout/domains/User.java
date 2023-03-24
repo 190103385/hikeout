@@ -16,10 +16,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "users",
-        uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) }
-)
+@Table(name = "users")
 @Builder
 public class User implements UserDetails {
 
@@ -37,7 +34,7 @@ public class User implements UserDetails {
     @Getter
     private Long id;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
     @Column(name = "password")

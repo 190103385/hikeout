@@ -1,13 +1,12 @@
 package com.example.hikeout.services.impl;
 
 import com.example.hikeout.configs.security.JwtService;
-import com.example.hikeout.domains.UserRole;
+import com.example.hikeout.domains.User;
 import com.example.hikeout.dto.AuthenticationRequest;
 import com.example.hikeout.dto.AuthenticationResponse;
 import com.example.hikeout.dto.UserDto;
 import com.example.hikeout.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import com.example.hikeout.domains.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,6 +56,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
+
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
