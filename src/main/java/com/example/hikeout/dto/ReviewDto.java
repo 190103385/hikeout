@@ -23,7 +23,7 @@ public class ReviewDto {
     private LocalDateTime date;
 
     @Getter
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private Long locationId;
 
     @Getter

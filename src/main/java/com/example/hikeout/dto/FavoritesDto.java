@@ -18,6 +18,7 @@ public class FavoritesDto {
     private Long userId;
 
     @Getter
+    @JsonIgnore
     private List<Location> locations;
 
 }
