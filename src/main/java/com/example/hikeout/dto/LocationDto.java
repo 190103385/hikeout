@@ -2,6 +2,7 @@ package com.example.hikeout.dto;
 
 import com.example.hikeout.domains.PriceItem;
 import com.example.hikeout.domains.Review;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,5 +53,6 @@ public class LocationDto {
     private List<Review> reviews;
 
     @Getter
+    @JsonIgnore
     private String category;
 }

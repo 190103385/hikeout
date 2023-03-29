@@ -9,13 +9,16 @@ public class UserToDto {
     public UserDto toUserDto(User user) {
         return new UserDto(
                 user.getId(),
-                user.getEmail(),
+                user.getUsername(),
                 user.getPassword(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getPhone(),
                 user.getCreatedAt(),
                 user.getModifiedAt(),
+                user.isAccountNonLocked(),
+                user.isEnabled(),
+                user.getRole(),
                 user.getReviews(),
                 user.getFavorites()
         );

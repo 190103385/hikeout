@@ -2,6 +2,7 @@ package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +13,9 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "reviews")public class Review {
+@Table(name = "reviews")
+@Builder
+public class Review {
 
     @Id
     @SequenceGenerator(

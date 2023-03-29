@@ -3,6 +3,7 @@ package com.example.hikeout.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Entity
 @Table(name = "favorites")
+@Builder
 public class Favorite {
 
     @Id
