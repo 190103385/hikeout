@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,10 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private final UserRepository userRepository;
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -39,6 +44,7 @@ public class UserServiceImpl implements UserDetailsService {
         return optionalUser.get();
     }
 
+    //todo: finish
     public User getCurrentlyLoggedInUser(Authentication authentication) {
         if (authentication == null) return null;
 
@@ -50,5 +56,19 @@ public class UserServiceImpl implements UserDetailsService {
         }
 
         return user;
+    }
+
+    public void editUser(UserDto request) {
+        User user = (User) getUserById(request.getId());
+
+        if(user != null) {
+            user.setEmail(request.getEmail());
+            user.setFirstName(request.getFirstName());
+            user.setLastName(request.getLastName());
+            user.setPhone(request.getPhone());
+            user.setModifiedAt(LocalDateTime.now());
+
+            userRepository.save(user);
+        };
     }
 }

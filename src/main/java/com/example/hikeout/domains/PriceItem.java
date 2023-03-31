@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -29,14 +30,17 @@ public class PriceItem {
 
     @Column(name = "name")
     @Getter
+    @Setter
     private String name;
 
     @Column(name = "price")
     @Getter
+    @Setter
     private int price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     @Getter
+    @Setter
     Location location;
 }

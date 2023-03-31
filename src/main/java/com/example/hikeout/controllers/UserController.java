@@ -1,6 +1,7 @@
 package com.example.hikeout.controllers;
 
 import com.example.hikeout.domains.User;
+import com.example.hikeout.dto.UserDto;
 import com.example.hikeout.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,11 @@ public class UserController {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return service.getAllUsers();
+    }
+
     @GetMapping
     public UserDetails getUserByEmail(@RequestParam(value = "email") String email) {
        return service.loadUserByUsername(email);
@@ -31,5 +37,10 @@ public class UserController {
     @GetMapping("/current")
     public String getCurrentUser() {
         return service.getCurrentlyLoggedInUser(authentication).getUsername();
+    }
+
+    @PutMapping
+    public void editUser(@RequestBody UserDto request) {
+        service.editUser(request);
     }
 }

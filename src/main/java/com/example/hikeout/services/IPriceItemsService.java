@@ -13,4 +13,8 @@ public interface IPriceItemsService {
     int getMaxAmount(Long id);
 
     int getMinAmount(Long id);
+
+    void upsertItem(PriceItemDto request);
+
+    void deleteItemById(Long id);
 }

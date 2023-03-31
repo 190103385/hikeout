@@ -1,18 +1,25 @@
 package com.example.hikeout.services.impl;
 
+import com.example.hikeout.domains.Location;
+import com.example.hikeout.domains.PriceItem;
 import com.example.hikeout.dto.PriceItemDto;
 import com.example.hikeout.dto.mappers.PriceItemToDto;
+import com.example.hikeout.repositories.LocationRepository;
 import com.example.hikeout.repositories.PriceItemsRepository;
 import com.example.hikeout.services.IPriceItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PriceItemsServiceImpl implements IPriceItemsService {
     @Autowired
     PriceItemsRepository repository;
+
+    @Autowired
+    LocationRepository locationRepository;
     @Autowired
     PriceItemToDto mapper;
 
@@ -60,5 +67,28 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
         }
 
         return min;
+    }
+
+    @Override
+    public void upsertItem(PriceItemDto newPriceItem) {
+        Optional<PriceItem> priceItemOptional = repository.findById(newPriceItem.getId());
+        PriceItem item;
+
+        if (priceItemOptional.isEmpty()) {
+            item = new PriceItem();
+        } else {
+            item = priceItemOptional.get();
+        }
+
+        item.setName(newPriceItem.getName());
+        item.setPrice(newPriceItem.getPrice());
+        item.setLocation(locationRepository.findById(newPriceItem.getLocation().getId()).orElseThrow());
+
+        repository.save(item);
+    }
+
+    @Override
+    public void deleteItemById(Long id) {
+        repository.deletePriceItemById(id);
     }
 }

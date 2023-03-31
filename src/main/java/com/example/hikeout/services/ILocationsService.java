@@ -15,4 +15,8 @@ public interface ILocationsService {
     List<LocationDto> getLocationsByLocationName(String name);
 
     List<LocationDto> getLocationsByCategoryAndName(String category, String name);
+
+    void deleteLocationById(Long id);
+
+    void upsertLocation(LocationDto newLocation);
 }

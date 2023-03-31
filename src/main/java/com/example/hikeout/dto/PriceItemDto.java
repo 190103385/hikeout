@@ -1,5 +1,6 @@
 package com.example.hikeout.dto;
 
+import com.example.hikeout.domains.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -16,5 +17,5 @@ public class PriceItemDto {
     private int price;
 
     @Getter
-    private Long locationId;
+    private Location location;
 }

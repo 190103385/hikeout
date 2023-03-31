@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ICategoriesService {
     List<CategoryDto> getAllCategories();
+
+    void addCategory(CategoryDto request);
 }

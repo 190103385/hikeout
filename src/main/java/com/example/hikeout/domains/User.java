@@ -1,5 +1,6 @@
 package com.example.hikeout.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,23 +36,26 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "email")
+    @Setter
     private String email;
 
     @Column(name = "password")
     @Getter
-    @Setter
     private String password;
 
     @Column(name = "first_name")
     @Getter
+    @Setter
     private String firstName;
 
     @Column(name = "last_name")
     @Getter
+    @Setter
     private String lastName;
 
     @Column(name = "phone")
     @Getter
+    @Setter
     private String phone;
 
     @Column(name = "created_at")
@@ -60,6 +64,7 @@ public class User implements UserDetails {
 
     @Column(name = "modified_at")
     @Getter
+    @Setter
     private LocalDateTime modifiedAt;
 
     @Column(name = "is_locked")
@@ -78,11 +83,13 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "id")
     @Getter
     @Setter
+    @JsonIgnore
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "id")
     @Getter
     @Setter
+    @JsonIgnore
     private List<Favorite> favorites;
 
     @Override

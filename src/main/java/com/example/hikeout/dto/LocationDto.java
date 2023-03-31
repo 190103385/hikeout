@@ -1,5 +1,6 @@
 package com.example.hikeout.dto;
 
+import com.example.hikeout.domains.Category;
 import com.example.hikeout.domains.PriceItem;
 import com.example.hikeout.domains.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,17 +43,14 @@ public class LocationDto {
     private Double lon;
 
     @Getter
-    @JsonIgnoreProperties({"location", "id"})
     private List<PriceItem> priceItems;
 
     @Getter
     private Boolean isFavorite;
 
     @Getter
-    @JsonIgnoreProperties({"user", "location", "id"})
     private List<Review> reviews;
 
     @Getter
-    @JsonIgnore
-    private String category;
+    private Category category;
 }

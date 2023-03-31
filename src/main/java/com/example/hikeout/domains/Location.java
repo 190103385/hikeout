@@ -1,8 +1,11 @@
 package com.example.hikeout.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -26,31 +29,39 @@ public class Location {
     )
     @Column(name = "id")
     @Getter
+    @Setter
     private Long id;
 
     @Column(name = "name")
     @Getter
+    @Setter
     private String name;
 
     @Column(name = "description")
     @Getter
+    @Setter
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     @Getter
+    @Setter
+    @JsonIgnoreProperties(value = "locations")
     private Category category;
 
     @Column(name = "icon")
     @Getter
+    @Setter
     private String icon;
 
     @Column(name = "works_from")
     @Getter
+    @Setter
     private String worksFrom;
 
     @Column(name = "works_till")
     @Getter
+    @Setter
     private String worksTill;
 
     @Column(name = "is_active")
@@ -67,15 +78,18 @@ public class Location {
 
     @OneToMany(mappedBy = "id")
     @Getter
+    @JsonIgnoreProperties("location")
     private List<PriceItem> priceItems;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "favorites_id", referencedColumnName = "id")
     @Getter
+    @JsonIgnoreProperties("locations")
     private Favorite favorite;
 
     @OneToMany(mappedBy = "id")
     @Getter
+    @JsonIgnoreProperties({"user", "location"})
     private List<Review> reviews;
 }
 

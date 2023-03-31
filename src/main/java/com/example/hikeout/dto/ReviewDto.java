@@ -23,7 +23,6 @@ public class ReviewDto {
     private LocalDateTime date;
 
     @Getter
-    @JsonIgnore
     private Long locationId;
 
     @Getter

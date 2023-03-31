@@ -3,10 +3,7 @@ package com.example.hikeout.controllers;
 import com.example.hikeout.dto.PriceItemDto;
 import com.example.hikeout.services.IPriceItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +31,15 @@ public class PriceItemsController {
     @GetMapping("/{id}/min")
     public int getMinAmount(@PathVariable Long id) {
         return service.getMinAmount(id);
+    }
+
+    @PutMapping
+    public void upsertPriceItem(@RequestBody PriceItemDto request) {
+        service.upsertItem(request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePriceItemById(@PathVariable Long id) {
+        service.deleteItemById(id);
     }
 }

@@ -11,6 +11,6 @@ public class PriceItemToDto {
                 priceItem.getId(),
                 priceItem.getName(),
                 priceItem.getPrice(),
-                priceItem.getLocation().getId());
+                priceItem.getLocation());
     }
 }

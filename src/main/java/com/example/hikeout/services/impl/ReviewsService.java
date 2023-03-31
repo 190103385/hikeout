@@ -45,4 +45,19 @@ public class ReviewsService implements IReviewsService {
                 .build()
         );
     }
+
+    @Override
+    public void editReview(ReviewDto request) {
+        Review review = reviewsRepository.findById(request.getId()).orElseThrow();
+
+        review.setRating(request.getRating());
+        review.setContent(request.getContent());
+
+        reviewsRepository.save(review);
+    }
+
+    @Override
+    public void deleteReviewById(Long id) {
+        reviewsRepository.deleteReviewById(id);
+    }
 }

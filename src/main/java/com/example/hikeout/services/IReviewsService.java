@@ -8,4 +8,8 @@ public interface IReviewsService {
     List<ReviewDto> getAllReviewsByLocationId(Long locationId);
 
     void createReview(ReviewDto request);
+
+    void editReview(ReviewDto request);
+
+    void deleteReviewById(Long id);
 }

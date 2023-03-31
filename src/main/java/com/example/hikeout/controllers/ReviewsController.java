@@ -24,4 +24,14 @@ public class ReviewsController {
     public void createReview(@RequestBody ReviewDto request) {
         service.createReview(request);
     }
+
+    @PutMapping
+    public void editReview(@RequestBody ReviewDto request) {
+        service.editReview(request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteReviewById(@PathVariable Long id) {
+        service.deleteReviewById(id);
+    }
 }

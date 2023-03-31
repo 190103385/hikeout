@@ -1,5 +1,6 @@
 package com.example.hikeout.services.impl;
 
+import com.example.hikeout.domains.Category;
 import com.example.hikeout.dto.CategoryDto;
 import com.example.hikeout.dto.mappers.CategoryToDto;
 import com.example.hikeout.repositories.CategoryRepository;
@@ -23,5 +24,16 @@ public class CategoriesServiceImpl implements ICategoriesService {
                 .findAll()
                 .stream().map(mapper :: toCategoryDto)
                 .toList();
+    }
+
+    @Override
+    public void addCategory(CategoryDto request) {
+        var category = Category.builder()
+                .name(request.getName())
+                .locations(request.getLocations())
+                .icon(request.getIcon())
+                .build();
+
+        repo.save(category);
     }
 }
