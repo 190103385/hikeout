@@ -2,6 +2,7 @@ package com.example.hikeout.services.impl;
 
 import com.example.hikeout.configs.security.JwtService;
 import com.example.hikeout.domains.User;
+import com.example.hikeout.domains.UserRole;
 import com.example.hikeout.dto.AuthenticationRequest;
 import com.example.hikeout.dto.AuthenticationResponse;
 import com.example.hikeout.dto.UserDto;
@@ -33,10 +34,10 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .createdAt(LocalDateTime.now())
                 .phone(request.getPhone())
-                .isEnabled(request.getIsEnabled())
-                .isLocked(request.getIsLocked())
+                .isEnabled(true)
+                .isLocked(false)
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .role(UserRole.USER)
                 .build();
 
         if(!emailValidator.test(user.getUsername()))

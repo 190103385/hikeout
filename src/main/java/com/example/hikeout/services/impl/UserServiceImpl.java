@@ -1,12 +1,15 @@
 package com.example.hikeout.services.impl;
 
 import com.example.hikeout.domains.User;
+import com.example.hikeout.domains.UserRole;
 import com.example.hikeout.dto.UserDto;
 import com.example.hikeout.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +27,11 @@ public class UserServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userRepository.findAllByOrderById();
+    }
+
+    public List<User> getAllModerators() {
+        return userRepository.findUserByRoleEquals(UserRole.ADMIN);
     }
 
     @Override
@@ -44,15 +51,15 @@ public class UserServiceImpl implements UserDetailsService {
         return optionalUser.get();
     }
 
-    //todo: finish
-    public User getCurrentlyLoggedInUser(Authentication authentication) {
-        if (authentication == null) return null;
+    public User getCurrentlyLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) throw new UsernameNotFoundException("User not found");
 
         User user = null;
         Object principal = authentication.getPrincipal();
 
         if(principal instanceof UserDetails) {
-            user = userRepository.findByEmail(((User) principal).getUsername()).orElseThrow();
+            user = (User) principal;
         }
 
         return user;
@@ -69,6 +76,44 @@ public class UserServiceImpl implements UserDetailsService {
             user.setModifiedAt(LocalDateTime.now());
 
             userRepository.save(user);
-        };
+        }
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteUserById(id);
+    }
+
+    public void blockUser(Long id) {
+        User user = userRepository.findUserById(id).orElseThrow();
+
+        user.setIsEnabled(false);
+        user.setIsLocked(true);
+
+        userRepository.save(user);
+    }
+
+    public void unblockUser(Long id) {
+        User user = userRepository.findUserById(id).orElseThrow();
+
+        user.setIsEnabled(true);
+        user.setIsLocked(false);
+
+        userRepository.save(user);
+    }
+
+    public void makeAdmin(Long id) {
+        User user = userRepository.findUserById(id).orElseThrow();
+
+        user.setRole(UserRole.ADMIN);
+
+        userRepository.save(user);
+    }
+
+    public void deleteAdmin(Long id) {
+        User user = userRepository.findUserById(id).orElseThrow();
+
+        user.setRole(UserRole.USER);
+
+        userRepository.save(user);
     }
 }

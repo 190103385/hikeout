@@ -1,5 +1,6 @@
 package com.example.hikeout.services;
 
+import com.example.hikeout.domains.Location;
 import com.example.hikeout.dto.LocationDto;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface ILocationsService {
 
     void deleteLocationById(Long id);
 
-    void upsertLocation(LocationDto newLocation);
+    void insertLocation(Location newLocation);
+
+    void updateLocation(Long id, Location newLocation);
 }

@@ -38,7 +38,7 @@ public class PriceItem {
     @Setter
     private int price;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     @Getter
     @Setter

@@ -1,41 +1,29 @@
 package com.example.hikeout.controllers;
 
+import com.example.hikeout.domains.Location;
 import com.example.hikeout.dto.LocationDto;
+import com.example.hikeout.repositories.CategoryRepository;
+import com.example.hikeout.services.ICategoriesService;
 import com.example.hikeout.services.ILocationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("api/locations")
+@RequestMapping("/locations")
 public class LocationsController {
+    @Autowired
+    ILocationsService service;
 
     @Autowired
-    private ILocationsService service;
+    ICategoriesService categoriesService;
 
-//    @GetMapping
-//    public List<LocationDto> getLocations(
-//            Model model,
-//            @RequestParam(value = "category", required = false) String category,
-//            @RequestParam(value = "name", required = false) String name
-//    ) {
-//        if(category != null && name != null) {
-//            return service.getLocationsByCategoryAndName(category, name);
-//        }
-//        else if(category != null) {
-//            return service.getLocationsByCategory(category);
-//        }
-//        else if(name != null) {
-//            return service.getLocationsByLocationName(name);
-//        }
-//
-//        model.addAttribute("locations", service.getAllLocations());
-//
-//        return service.getAllLocations();
-//    }
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @GetMapping
     public String getLocations(
@@ -43,35 +31,58 @@ public class LocationsController {
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "name", required = false) String name
     ) {
-        List<LocationDto> locations = null;
+        List<LocationDto> locations;
 
-        if(category != null && name != null) {
+        if (category != null && name != null) {
             locations = service.getLocationsByCategoryAndName(category, name);
-        }
-        else if(category != null) {
+        } else if (category != null) {
             locations = service.getLocationsByCategory(category);
-        }
-        else if(name != null) {
+        } else if (name != null) {
             locations = service.getLocationsByLocationName(name);
-        }
+        } else locations = service.getAllLocations();
 
         model.addAttribute("locations", locations);
 
-        return "locations";
+        return "locations-view";
     }
 
-    @GetMapping("/{id}")
-    public LocationDto getLocationById(@PathVariable Long id) {
-        return service.getLocationById(id);
+    @GetMapping("/view/add")
+    public String addLocationView(Model model) {
+        Location location = new Location();
+
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("location", location);
+
+        return "add-location-view";
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteLocationById(@PathVariable Long id) {
+    @GetMapping("/view/update/{id}")
+    public String updateLocationView(@PathVariable Long id, Model model) {
+
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("location", service.getLocationById(id));
+
+        return "update-location-view";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteLocation(@PathVariable Long id) {
         service.deleteLocationById(id);
+
+        return "redirect:/locations";
     }
 
-    @PutMapping
-    public void updateLocation(@RequestBody LocationDto request) {
-        service.upsertLocation(request);
+    @PostMapping("/update/{id}")
+    public String updateLocation(@PathVariable Long id, @ModelAttribute("location") Location newLocation) {
+        service.updateLocation(id, newLocation);
+
+        return "redirect:/locations";
+    }
+
+    @PostMapping("/add")
+    public String insertLocation(@ModelAttribute("location") Location location) {
+        service.insertLocation(location);
+
+        return "redirect:/locations";
     }
 }

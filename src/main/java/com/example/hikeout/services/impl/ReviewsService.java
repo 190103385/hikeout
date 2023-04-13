@@ -26,8 +26,6 @@ public class ReviewsService implements IReviewsService {
     @Autowired
     private ReviewToDto mapper;
 
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
     @Override
     public List<ReviewDto> getAllReviewsByLocationId(Long locationId) {
         return reviewsRepository.findAllByLocationId(locationId).stream()
@@ -35,13 +33,18 @@ public class ReviewsService implements IReviewsService {
     }
 
     @Override
+    public List<ReviewDto> getAllReviews() {
+        return reviewsRepository.findAll().stream().map(mapper::toReviewDto).toList();
+    }
+
+    @Override
     public void createReview(ReviewDto request) {
         reviewsRepository.save(Review.builder()
                 .date(LocalDateTime.now())
                 .content(request.getContent())
-                .location(locationRepository.findById(request.getLocationId()).orElseThrow())
+                .location(request.getLocation())
                 .rating(request.getRating())
-                .user(userService.getCurrentlyLoggedInUser(auth))
+                .user(userService.getCurrentlyLoggedInUser())
                 .build()
         );
     }

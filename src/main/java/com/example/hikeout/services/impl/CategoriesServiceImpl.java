@@ -27,13 +27,26 @@ public class CategoriesServiceImpl implements ICategoriesService {
     }
 
     @Override
-    public void addCategory(CategoryDto request) {
-        var category = Category.builder()
-                .name(request.getName())
-                .locations(request.getLocations())
-                .icon(request.getIcon())
-                .build();
+    public void addCategory(Category newCategory) {
+        repo.save(newCategory);
+    }
+
+    @Override
+    public void updateCategory(Long id, Category newCategory) {
+        Category category = repo.findCategoryById(id).orElseThrow();
+
+        if(newCategory.getName() != null || newCategory.getName().equals("")) category.setName(newCategory.getName());
 
         repo.save(category);
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+        repo.deleteCategoryById(id);
+    }
+
+    @Override
+    public Category getCategory(Long id) {
+        return repo.findCategoryById(id).orElseThrow();
     }
 }

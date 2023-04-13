@@ -1,6 +1,5 @@
-package com.example.hikeout.controllers;
+package com.example.hikeout.restcontrollers;
 
-import com.example.hikeout.domains.Favorite;
 import com.example.hikeout.dto.FavoritesDto;
 import com.example.hikeout.services.IFavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/favorites")
-public class FavoritesController {
+public class RestFavoritesController {
 
     @Autowired
     private IFavoritesService service;

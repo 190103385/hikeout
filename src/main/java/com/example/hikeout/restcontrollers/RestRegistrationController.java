@@ -1,4 +1,4 @@
-package com.example.hikeout.controllers;
+package com.example.hikeout.restcontrollers;
 
 import com.example.hikeout.dto.AuthenticationRequest;
 import com.example.hikeout.dto.AuthenticationResponse;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api")
 @AllArgsConstructor
-public class RegistrationController {
+public class RestRegistrationController {
 
     @Autowired
     AuthenticationService service;

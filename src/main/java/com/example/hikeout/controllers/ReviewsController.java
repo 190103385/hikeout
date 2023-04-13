@@ -1,37 +1,30 @@
 package com.example.hikeout.controllers;
 
-import com.example.hikeout.dto.LocationDto;
-import com.example.hikeout.dto.ReviewDto;
 import com.example.hikeout.services.IReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("api/reviews")
+@Controller
+@RequestMapping("/reviews")
 public class ReviewsController {
-
     @Autowired
-    private IReviewsService service;
+    IReviewsService service;
 
-    @GetMapping("/{locationId}")
-    public List<ReviewDto> getReviewsByLocationId(@PathVariable Long locationId) {
-        return service.getAllReviewsByLocationId(locationId);
+    @GetMapping
+    public String getAllReviews(Model model) {
+        model.addAttribute("reviews", service.getAllReviews());
+
+        return "reviews-view";
     }
 
-    @PostMapping
-    public void createReview(@RequestBody ReviewDto request) {
-        service.createReview(request);
-    }
-
-    @PutMapping
-    public void editReview(@RequestBody ReviewDto request) {
-        service.editReview(request);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteReviewById(@PathVariable Long id) {
+    @GetMapping("/{id}/delete")
+    public String deleteReview(@PathVariable Long id) {
         service.deleteReviewById(id);
+
+        return "redirect:/reviews";
     }
 }

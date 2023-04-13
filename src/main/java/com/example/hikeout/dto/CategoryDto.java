@@ -22,7 +22,6 @@ public class CategoryDto {
     private String icon;
 
     @Getter
-    @JsonIgnore
     private List<Location> locations;
 
 }

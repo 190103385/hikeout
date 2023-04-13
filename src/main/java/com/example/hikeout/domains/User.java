@@ -69,14 +69,17 @@ public class User implements UserDetails {
 
     @Column(name = "is_locked")
     @Getter
+    @Setter
     private Boolean isLocked;
 
     @Column(name = "is_enabled")
     @Getter
+    @Setter
     private Boolean isEnabled;
 
     @Column(name = "role")
     @Getter
+    @Setter
     @Enumerated(EnumType.STRING)
     private UserRole role;
 

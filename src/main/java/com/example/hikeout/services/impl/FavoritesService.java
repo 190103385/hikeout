@@ -25,8 +25,6 @@ public class FavoritesService implements IFavoritesService {
     @Autowired
     private UserServiceImpl userService;
 
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
     @Override
     public List<FavoritesDto> getAllFavoritesByUserId(Long id) {
         return repository.findAllByUserId(id).stream().map(mapper::toFavoritesDto).toList();
@@ -37,7 +35,7 @@ public class FavoritesService implements IFavoritesService {
         List<Location> locations = List.of(new Location(1L, "Medeu"));
 
         repository.save(Favorite.builder()
-                .user(userService.getCurrentlyLoggedInUser(auth))
+                .user(userService.getCurrentlyLoggedInUser())
                 .locations(locations)
                 .build());
     }

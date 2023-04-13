@@ -1,11 +1,13 @@
 package com.example.hikeout.services.impl;
 
+import com.example.hikeout.domains.Category;
 import com.example.hikeout.domains.Location;
 import com.example.hikeout.dto.LocationDto;
 import com.example.hikeout.dto.mappers.LocationToDto;
 import com.example.hikeout.repositories.CategoryRepository;
 import com.example.hikeout.repositories.LocationRepository;
 import com.example.hikeout.services.ILocationsService;
+import com.example.hikeout.services.IPriceItemsService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class LocationsServiceImpl implements ILocationsService {
     LocationRepository locationRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    IPriceItemsService priceItemsService;
     @Autowired
     LocationToDto mapper;
 
@@ -63,27 +65,28 @@ public class LocationsServiceImpl implements ILocationsService {
 
     @Override
     public void deleteLocationById(Long id) {
+        priceItemsService.deleteItemByLocation(id);
         locationRepository.deleteLocationById(id);
     }
 
     @Override
-    public void upsertLocation(LocationDto newLocation) {
-        Optional<Location> locationOptional = locationRepository.findById(newLocation.getId());
-        Location location;
-        if (locationOptional.isEmpty()) {
-            location = new Location();
-        } else {
-            location = locationOptional.get();
-        }
+    public void insertLocation(Location newLocation) {
+        locationRepository.save(newLocation);
+    }
 
-        location.setName(newLocation.getName());
-        location.setDescription(newLocation.getDescription());
-        location.setIcon(newLocation.getIcon());
-        location.setCategory(categoryRepository.findCategoryByName(newLocation.getCategory().getName()));
-        location.setWorksFrom(newLocation.getWorksFrom());
-        location.setWorksTill(newLocation.getWorksTill());
+    @Override
+    public void updateLocation(Long id, Location newLocation) {
+        Location location = locationRepository.findById(id).orElseThrow();
+
+        if(newLocation.getName() != null) location.setName(newLocation.getName());
+        if(newLocation.getDescription() != null) location.setDescription(newLocation.getDescription());
+        if(newLocation.getIcon() != null) location.setIcon(newLocation.getIcon());
+        if(newLocation.getCategory() != null) location.setCategory(newLocation.getCategory());
+        if(newLocation.getWorksFrom() != null) location.setWorksFrom(newLocation.getWorksFrom());
+        if(newLocation.getWorksTill() != null) location.setWorksTill(newLocation.getWorksTill());
+        if(newLocation.getLat() != null) location.setLat(newLocation.getLat());
+        if(newLocation.getLon() != null) location.setLon(newLocation.getLon());
 
         locationRepository.save(location);
-
     }
 }

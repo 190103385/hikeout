@@ -12,7 +12,7 @@ public class ReviewToDto {
                 review.getRating(),
                 review.getContent(),
                 review.getDate(),
-                review.getLocation().getId(),
-                review.getUser().getId());
+                review.getLocation(),
+                review.getUser());
     }
 }

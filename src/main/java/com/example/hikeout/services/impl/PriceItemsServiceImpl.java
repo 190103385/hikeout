@@ -29,6 +29,11 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
     }
 
     @Override
+    public PriceItem getById(Long id) {
+        return repository.findPriceItemById(id).orElseThrow();
+    }
+
+    @Override
     public List<PriceItemDto> findAllByLocationId(Long id) {
         return repository.findAllByLocationId(id).stream().map(mapper::toPriceItemDto).toList();
     }
@@ -90,5 +95,26 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
     @Override
     public void deleteItemById(Long id) {
         repository.deletePriceItemById(id);
+    }
+
+    @Override
+    public void deleteItemByLocation(Long locationId) {
+        repository.deletePriceItemByLocationId(locationId);
+    }
+
+    @Override
+    public void insertPriceItem(PriceItem item) {
+        repository.save(item);
+    }
+
+    @Override
+    public void updatePriceItem(Long id, PriceItem newItem) {
+        PriceItem item = repository.findPriceItemById(id).orElseThrow();
+
+        if(newItem.getName() != null) item.setName(newItem.getName());
+        if(newItem.getPrice() != 0) item.setPrice(newItem.getPrice());
+        if(newItem.getLocation() != null) item.setLocation(newItem.getLocation());
+
+        repository.save(item);
     }
 }

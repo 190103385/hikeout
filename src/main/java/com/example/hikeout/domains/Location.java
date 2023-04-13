@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -70,24 +72,26 @@ public class Location {
 
     @Column(name = "latitude")
     @Getter
+    @Setter
     private Double lat;
 
     @Column(name = "longitude")
     @Getter
+    @Setter
     private Double lon;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     @Getter
     @JsonIgnoreProperties("location")
     private List<PriceItem> priceItems;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "favorites_id", referencedColumnName = "id")
     @Getter
     @JsonIgnoreProperties("locations")
     private Favorite favorite;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     @Getter
     @JsonIgnoreProperties({"user", "location"})
     private List<Review> reviews;
