@@ -30,8 +30,9 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/register", "/api/login").permitAll()
-                .anyRequest().authenticated()
+//                .requestMatchers("/api/register", "/api/login", "/swagger-ui/**", "/hikeout/locations/**", "/locations/**").permitAll()
+//                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -59,5 +60,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

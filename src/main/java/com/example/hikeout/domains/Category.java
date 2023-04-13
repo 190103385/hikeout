@@ -1,9 +1,8 @@
 package com.example.hikeout.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,6 +12,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Entity(name = "Category")
 @Table(name = "categories")
+@Builder
 public class Category {
 
     @Id
@@ -31,14 +31,18 @@ public class Category {
 
     @Column(name = "name")
     @Getter
+    @Setter
     private String name;
 
     @Column(name = "icon")
     @Getter
+    @Setter
     private String icon;
 
     @OneToMany(mappedBy = "id")
     @Getter
+    @Setter
+    @JsonIgnoreProperties({"category", "priceItems", "favorite", "reviews"})
     private List<Location> locations;
 
 }

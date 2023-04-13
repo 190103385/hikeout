@@ -1,38 +1,58 @@
 package com.example.hikeout.controllers;
 
-import com.example.hikeout.dto.PriceItemDto;
+import com.example.hikeout.domains.PriceItem;
+import com.example.hikeout.repositories.PriceItemsRepository;
+import com.example.hikeout.services.ILocationsService;
 import com.example.hikeout.services.IPriceItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("api/priceItems")
+@Controller
+@RequestMapping("/priceItems")
 public class PriceItemsController {
     @Autowired
     IPriceItemsService service;
+    @Autowired
+    ILocationsService locationsService;
 
     @GetMapping
-    public List<PriceItemDto> findAll() {
-        return service.findAll();
+    public String getAllUsers(Model model) {
+        model.addAttribute("priceItems", service.findAll());
+
+        return "price-items-view";
     }
 
-    @GetMapping("/{id}")
-    public List<PriceItemDto> findAllByLocationId(@PathVariable Long id) {
-        return service.findAllByLocationId(id);
+    @GetMapping("/view/add")
+    public String addPriceItemView(Model model) {
+        PriceItem item = new PriceItem();
+
+        model.addAttribute("priceItem", item);
+        model.addAttribute("locations", locationsService.getAllLocations());
+
+        return "add-price-item-view";
     }
 
-    @GetMapping("/{id}/max")
-    public int getMaxAmount(@PathVariable Long id) {
-        return service.getMaxAmount(id);
+    @GetMapping("/add")
+    public String addPriceItem(@ModelAttribute("priceItem") PriceItem item) {
+        service.insertPriceItem(item);
+
+        return "redirect:/priceItems";
     }
 
-    @GetMapping("/{id}/min")
-    public int getMinAmount(@PathVariable Long id) {
-        return service.getMinAmount(id);
+    @GetMapping("/view/update/{id}")
+    public String updatePriceItemView(@PathVariable Long id, Model model) {
+        model.addAttribute("priceItem", service.getById(id));
+        model.addAttribute("locations", locationsService.getAllLocations());
+
+        return "update-price-item-view";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updatePriceItem(@PathVariable Long id, @ModelAttribute("priceItem") PriceItem newItem) {
+        service.updatePriceItem(id, newItem);
+
+        return "redirect:/priceItems";
     }
 }

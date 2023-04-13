@@ -1,10 +1,8 @@
 package com.example.hikeout.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -33,22 +31,25 @@ public class Review {
 
     @Column(name = "rate")
     @Getter
+    @Setter
     private int rating;
 
     @Column(name = "review")
     @Getter
+    @Setter
     private String content;
 
     @Column(name = "date")
     @Getter
     private LocalDateTime date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     @Getter
+    @JsonIgnoreProperties({"category", "priceItems", "favorite", "reviews"})
     private Location location;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @Getter
     private User user;

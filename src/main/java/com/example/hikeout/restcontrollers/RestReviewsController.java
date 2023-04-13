@@ -1,0 +1,36 @@
+package com.example.hikeout.restcontrollers;
+
+import com.example.hikeout.dto.ReviewDto;
+import com.example.hikeout.services.IReviewsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("api/reviews")
+public class RestReviewsController {
+
+    @Autowired
+    private IReviewsService service;
+
+    @GetMapping("/{locationId}")
+    public List<ReviewDto> getReviewsByLocationId(@PathVariable Long locationId) {
+        return service.getAllReviewsByLocationId(locationId);
+    }
+
+    @PostMapping
+    public void createReview(@RequestBody ReviewDto request) {
+        service.createReview(request);
+    }
+
+    @PutMapping
+    public void editReview(@RequestBody ReviewDto request) {
+        service.editReview(request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteReviewById(@PathVariable Long id) {
+        service.deleteReviewById(id);
+    }
+}

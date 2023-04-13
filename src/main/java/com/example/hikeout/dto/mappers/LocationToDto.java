@@ -28,7 +28,7 @@ public class LocationToDto {
                 priceItemsRepository.findAllByLocationId(location.getId()),
                 location.getFavorite() != null,
                 location.getReviews(),
-                location.getCategory().getName()
+                location.getCategory()
         );
     }
 
