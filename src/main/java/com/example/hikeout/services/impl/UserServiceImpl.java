@@ -27,11 +27,11 @@ public class UserServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
     public List<User> getAllUsers() {
-        return userRepository.findAllByOrderById();
+        return userRepository.findUserByRoleEqualsOrderById(UserRole.USER);
     }
 
     public List<User> getAllModerators() {
-        return userRepository.findUserByRoleEquals(UserRole.ADMIN);
+        return userRepository.findUserByRoleEqualsOrderById(UserRole.ADMIN);
     }
 
     @Override

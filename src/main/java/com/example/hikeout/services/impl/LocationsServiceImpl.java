@@ -1,10 +1,8 @@
 package com.example.hikeout.services.impl;
 
-import com.example.hikeout.domains.Category;
 import com.example.hikeout.domains.Location;
 import com.example.hikeout.dto.LocationDto;
 import com.example.hikeout.dto.mappers.LocationToDto;
-import com.example.hikeout.repositories.CategoryRepository;
 import com.example.hikeout.repositories.LocationRepository;
 import com.example.hikeout.services.ILocationsService;
 import com.example.hikeout.services.IPriceItemsService;
@@ -12,7 +10,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +26,7 @@ public class LocationsServiceImpl implements ILocationsService {
 
     @Override
     public List<LocationDto> getAllLocations() {
-        List<Location> locations = locationRepository.findAll();
+        List<Location> locations = locationRepository.findAllByOrderByIdAsc();
         return locations.stream().map(mapper::toLocationDto).toList();
     }
 
@@ -84,8 +81,8 @@ public class LocationsServiceImpl implements ILocationsService {
         if(newLocation.getCategory() != null) location.setCategory(newLocation.getCategory());
         if(newLocation.getWorksFrom() != null) location.setWorksFrom(newLocation.getWorksFrom());
         if(newLocation.getWorksTill() != null) location.setWorksTill(newLocation.getWorksTill());
-        if(newLocation.getLat() != null) location.setLat(newLocation.getLat());
-        if(newLocation.getLon() != null) location.setLon(newLocation.getLon());
+        location.setLat(newLocation.getLat());
+        location.setLon(newLocation.getLon());
 
         locationRepository.save(location);
     }
