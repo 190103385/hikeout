@@ -42,7 +42,7 @@
             <td th:text="${priceItem.location.name}"></td>
             <td>
                 <a th:href="@{/priceItems/view/update/{id} (id=${priceItem.id})}" class="btn btn-primary"> UPDATE </a>
-                <a th:href="@{/priceItems/{id}/delete (id=${priceItem.id})}" class="btn btn-danger"> DELETE </a>
+                <a th:href="@{/priceItems/delete/{id} (id=${priceItem.id})}" class="btn btn-danger"> DELETE </a>
             </td>
         </tr>
         </tbody>

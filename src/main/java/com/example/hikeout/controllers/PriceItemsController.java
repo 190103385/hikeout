@@ -55,4 +55,11 @@ public class PriceItemsController {
 
         return "redirect:/priceItems";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deletePriceItem(@PathVariable Long id) {
+        service.deleteItemById(id);
+
+        return "redirect:/priceItems";
+    }
 }

@@ -29,7 +29,7 @@ public class LocationsServiceImpl implements ILocationsService {
 
     @Override
     public List<LocationDto> getAllLocations() {
-        List<Location> locations = locationRepository.findAll();
+        List<Location> locations = locationRepository.findAllByOrderByIdAsc();
         return locations.stream().map(mapper::toLocationDto).toList();
     }
 
@@ -84,8 +84,8 @@ public class LocationsServiceImpl implements ILocationsService {
         if(newLocation.getCategory() != null) location.setCategory(newLocation.getCategory());
         if(newLocation.getWorksFrom() != null) location.setWorksFrom(newLocation.getWorksFrom());
         if(newLocation.getWorksTill() != null) location.setWorksTill(newLocation.getWorksTill());
-        if(newLocation.getLat() != null) location.setLat(newLocation.getLat());
-        if(newLocation.getLon() != null) location.setLon(newLocation.getLon());
+        location.setLat(newLocation.getLat());
+        location.setLon(newLocation.getLon());
 
         locationRepository.save(location);
     }
