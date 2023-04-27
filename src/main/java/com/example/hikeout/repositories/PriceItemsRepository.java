@@ -14,6 +14,12 @@ public interface PriceItemsRepository extends JpaRepository<PriceItem, Long> {
 
     Optional<PriceItem> findPriceItemById(Long id);
 
+    List<PriceItem> findAllByLocationNameContainsAndPriceIsLessThanEqualOrderById(String location, int price);
+
+    List<PriceItem> findAllByLocationNameContains(String location);
+
+    List<PriceItem> findAllByPriceLessThanEqual(int price);
+
     @Transactional
     void deletePriceItemById(Long id);
 

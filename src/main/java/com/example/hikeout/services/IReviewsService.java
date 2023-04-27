@@ -7,6 +7,8 @@ import java.util.List;
 public interface IReviewsService {
     List<ReviewDto> getAllReviewsByLocationId(Long locationId);
 
+    List<ReviewDto> getReviewsByLocation(String location);
+
     List<ReviewDto> getAllReviews();
 
     void createReview(ReviewDto request);

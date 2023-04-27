@@ -30,6 +30,10 @@ public class UserServiceImpl implements UserDetailsService {
         return userRepository.findUserByRoleEqualsOrderById(UserRole.USER);
     }
 
+    public List<User> getUsersByUsername(String username, UserRole role) {
+        return userRepository.findAllByEmailContainsIgnoreCaseAndRoleEqualsOrderById(username, role);
+    }
+
     public List<User> getAllModerators() {
         return userRepository.findUserByRoleEqualsOrderById(UserRole.ADMIN);
     }

@@ -9,6 +9,12 @@ public interface IPriceItemsService {
 
     List<PriceItemDto> findAll();
 
+    List<PriceItemDto> findAllByLocationAndPriceIsLessThan(String location, int price);
+
+    List<PriceItemDto> findAllByLocationName(String location);
+
+    List<PriceItemDto> findAllByPriceIsLessThan(int price);
+
     PriceItem getById(Long id);
 
     List<PriceItemDto> findAllByLocationId(Long id);

@@ -31,6 +31,10 @@ public class ReviewsService implements IReviewsService {
         return reviewsRepository.findAllByLocationId(locationId).stream()
                 .map(mapper::toReviewDto).toList();
     }
+    @Override
+    public List<ReviewDto> getReviewsByLocation(String location) {
+        return reviewsRepository.findAllByLocationNameOrderById(location).stream().map(mapper::toReviewDto).toList();
+    }
 
     @Override
     public List<ReviewDto> getAllReviews() {

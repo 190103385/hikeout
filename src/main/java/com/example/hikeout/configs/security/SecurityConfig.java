@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.swing.*;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -39,6 +41,9 @@ public class SecurityConfig {
                 .and()
                 .authenticationProvider(daoAuthenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
+//                .loginProcessingUrl("/auth")
+//                .defaultSuccessUrl("/management", true)
         ;
 
         return http.build();

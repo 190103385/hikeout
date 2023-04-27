@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-top: 15px">
         <h1>List Locations</h1>
     </div>
     <div class="row">
@@ -17,7 +17,27 @@
             <a th:href="@{/locations/view/add}" class="btn btn-primary btn-sm mb-3"> Add location</a>
         </div>
     </div>
-    <table class="table table-striped table-bordered">
+    <div style="margin-bottom: 15px">
+        <form th:action="@{/locations}" th:object="${locations}" method="get">
+            <span>
+                <label for="search">Search: </label>
+                <input id="search" type="text" name="name" placeholder="Search by name" data-filter-for="locations">
+            </span>
+
+            <span style="margin-left: 30px">
+                <label for="filter">Filter: </label>
+                <select id="filter" name="category">
+                            <option value="#" disabled selected>All</option>
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.name}"
+                                    th:text="${category.name}">CATEGORY
+                            </option>
+                        </select>
+            </span>
+            <button style="margin-left: 15px" type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+    </div>
+    <table id="locations" class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
             <th>ID</th>

@@ -1,6 +1,7 @@
 package com.example.hikeout.controllers;
 
 import com.example.hikeout.domains.PriceItem;
+import com.example.hikeout.dto.PriceItemDto;
 import com.example.hikeout.repositories.PriceItemsRepository;
 import com.example.hikeout.services.ILocationsService;
 import com.example.hikeout.services.IPriceItemsService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/priceItems")
@@ -18,8 +21,21 @@ public class PriceItemsController {
     ILocationsService locationsService;
 
     @GetMapping
-    public String getAllUsers(Model model) {
-        model.addAttribute("priceItems", service.findAll());
+    public String getAllPriceItems(Model model,
+                              @RequestParam(value = "name", required = false) String name,
+                              @RequestParam(value = "price", required = false) Integer price) {
+
+        List<PriceItemDto> priceItems;
+
+        if (price != null && name != null && !name.isEmpty()) {
+            priceItems = service.findAllByLocationAndPriceIsLessThan(name, price);
+        } else if(price != null){
+            priceItems = service.findAllByPriceIsLessThan(price);
+        } else if (name != null && !name.isEmpty()) {
+            priceItems = service.findAllByLocationName(name);
+        } else priceItems = service.findAll();
+
+        model.addAttribute("priceItems", priceItems);
 
         return "price-items-view";
     }

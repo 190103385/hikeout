@@ -32,15 +32,16 @@ public class LocationsController {
     ) {
         List<LocationDto> locations;
 
-        if (category != null && name != null) {
+        if (category != null && name != null && !name.isEmpty()) {
             locations = service.getLocationsByCategoryAndName(category, name);
         } else if (category != null) {
             locations = service.getLocationsByCategory(category);
-        } else if (name != null) {
+        } else if (name != null && !name.isEmpty()) {
             locations = service.getLocationsByLocationName(name);
         } else locations = service.getAllLocations();
 
         model.addAttribute("locations", locations);
+        model.addAttribute("categories", categoryRepository.findAll());
 
         return "locations-view";
     }

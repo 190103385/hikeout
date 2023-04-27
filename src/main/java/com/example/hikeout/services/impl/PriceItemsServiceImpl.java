@@ -29,6 +29,21 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
     }
 
     @Override
+    public List<PriceItemDto> findAllByLocationAndPriceIsLessThan(String location, int price) {
+        return repository.findAllByLocationNameContainsAndPriceIsLessThanEqualOrderById(location, price).stream().map(mapper::toPriceItemDto).toList();
+    }
+
+    @Override
+    public List<PriceItemDto> findAllByLocationName(String location) {
+        return repository.findAllByLocationNameContains(location).stream().map(mapper::toPriceItemDto).toList();
+    }
+
+    @Override
+    public List<PriceItemDto> findAllByPriceIsLessThan(int price) {
+        return repository.findAllByPriceLessThanEqual(price).stream().map(mapper::toPriceItemDto).toList();
+    }
+
+    @Override
     public PriceItem getById(Long id) {
         return repository.findPriceItemById(id).orElseThrow();
     }
@@ -42,13 +57,13 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
     public int getMaxAmount(Long id) {
         List<PriceItemDto> priceItems = findAllByLocationId(id);
 
-        if(priceItems.isEmpty()) {
+        if (priceItems.isEmpty()) {
             return 0;
         }
 
         int sum = 0;
 
-        for(PriceItemDto item : priceItems) {
+        for (PriceItemDto item : priceItems) {
             sum += item.getPrice();
         }
 
@@ -59,14 +74,14 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
     public int getMinAmount(Long id) {
         List<PriceItemDto> priceItems = findAllByLocationId(id);
 
-        if(priceItems.isEmpty()) {
+        if (priceItems.isEmpty()) {
             return 0;
         }
 
         int min = priceItems.get(0).getPrice();
 
-        for(PriceItemDto item : priceItems) {
-            if(min > item.getPrice()) {
+        for (PriceItemDto item : priceItems) {
+            if (min > item.getPrice()) {
                 min = item.getPrice();
             }
         }
@@ -111,9 +126,9 @@ public class PriceItemsServiceImpl implements IPriceItemsService {
     public void updatePriceItem(Long id, PriceItem newItem) {
         PriceItem item = repository.findPriceItemById(id).orElseThrow();
 
-        if(newItem.getName() != null) item.setName(newItem.getName());
-        if(newItem.getPrice() != 0) item.setPrice(newItem.getPrice());
-        if(newItem.getLocation() != null) item.setLocation(newItem.getLocation());
+        if (newItem.getName() != null) item.setName(newItem.getName());
+        if (newItem.getPrice() != 0) item.setPrice(newItem.getPrice());
+        if (newItem.getLocation() != null) item.setLocation(newItem.getLocation());
 
         repository.save(item);
     }

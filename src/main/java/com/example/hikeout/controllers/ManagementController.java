@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ManagementController {
 
     @GetMapping
-    public String getManagement(Model model) {
+    public String getManagement() {
         return "management";
     }
 }
