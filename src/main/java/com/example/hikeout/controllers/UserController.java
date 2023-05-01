@@ -1,14 +1,14 @@
 package com.example.hikeout.controllers;
 
-import com.example.hikeout.domains.User;
 import com.example.hikeout.domains.UserRole;
 import com.example.hikeout.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/users")
@@ -19,7 +19,7 @@ public class UserController {
     @GetMapping
     public String getAllUsers(Model model, @RequestParam(value = "name", required = false) String name) {
 
-        if(name != null && !name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             model.addAttribute("users", service.getUsersByUsername(name, UserRole.USER));
         } else model.addAttribute("users", service.getAllUsers());
 
@@ -57,7 +57,7 @@ public class UserController {
     @GetMapping("/moderators")
     public String getAllModerators(Model model, @RequestParam(value = "name", required = false) String name) {
 
-        if(name != null && !name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             model.addAttribute("moderators", service.getUsersByUsername(name, UserRole.ADMIN));
         } else model.addAttribute("moderators", service.getAllModerators());
 

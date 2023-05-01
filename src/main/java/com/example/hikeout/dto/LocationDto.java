@@ -1,10 +1,9 @@
 package com.example.hikeout.dto;
 
 import com.example.hikeout.domains.Category;
+import com.example.hikeout.domains.Location;
 import com.example.hikeout.domains.PriceItem;
 import com.example.hikeout.domains.Review;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 public class EmailValidatorServiceImpl implements Predicate<String> {
     @Autowired
     UserServiceImpl userService;
+
     @Override
     public boolean test(String email) {
         String regexPattern = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";

@@ -10,6 +10,6 @@ public class FavoritesToDto {
         return new FavoritesDto(
                 favorite.getId(),
                 favorite.getUser().getId(),
-                favorite.getLocations());
+                favorite.getLocation().getId());
     }
 }

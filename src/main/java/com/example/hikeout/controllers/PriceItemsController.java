@@ -2,7 +2,6 @@ package com.example.hikeout.controllers;
 
 import com.example.hikeout.domains.PriceItem;
 import com.example.hikeout.dto.PriceItemDto;
-import com.example.hikeout.repositories.PriceItemsRepository;
 import com.example.hikeout.services.ILocationsService;
 import com.example.hikeout.services.IPriceItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +21,14 @@ public class PriceItemsController {
 
     @GetMapping
     public String getAllPriceItems(Model model,
-                              @RequestParam(value = "name", required = false) String name,
-                              @RequestParam(value = "price", required = false) Integer price) {
+                                   @RequestParam(value = "name", required = false) String name,
+                                   @RequestParam(value = "price", required = false) Integer price) {
 
         List<PriceItemDto> priceItems;
 
         if (price != null && name != null && !name.isEmpty()) {
             priceItems = service.findAllByLocationAndPriceIsLessThan(name, price);
-        } else if(price != null){
+        } else if (price != null) {
             priceItems = service.findAllByPriceIsLessThan(price);
         } else if (name != null && !name.isEmpty()) {
             priceItems = service.findAllByLocationName(name);
@@ -65,7 +64,7 @@ public class PriceItemsController {
         return "update-price-item-view";
     }
 
-    @PostMapping("/update/{id}")
+    @GetMapping("/update/{id}")
     public String updatePriceItem(@PathVariable Long id, @ModelAttribute("priceItem") PriceItem newItem) {
         service.updatePriceItem(id, newItem);
 

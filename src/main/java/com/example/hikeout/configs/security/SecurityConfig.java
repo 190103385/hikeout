@@ -5,11 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +19,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.swing.*;
-
+/**
+ * Configuration file for Spring security
+ * */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -32,21 +36,37 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
-//                .requestMatchers("/api/register", "/api/login", "/swagger-ui/**").permitAll()
-//                .requestMatchers("/management").hasRole("ADMIN")
-//                .anyRequest().authenticated()
-                .anyRequest().permitAll()
+                //Paths user can use without auth
+                .requestMatchers(HttpMethod.GET,
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/api/reviews/**",
+                        "/api/priceItems/**",
+                        "/api/categories/**",
+                        "/api/locations/**",
+                        "/locations/**",
+                        "/users/**",
+                        "/categories/**",
+                        "/management/**",
+                        "/priceItems/**",
+                        "/reviews/**").permitAll()
+                .requestMatchers(HttpMethod.POST,
+                        "/api/register",
+                        "/api/login").permitAll()
+                //Restricting for non-auth users
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(daoAuthenticationProvider())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-//                .loginProcessingUrl("/auth")
-//                .defaultSuccessUrl("/management", true)
-        ;
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/v3/api-docs");
     }
 
     @Bean

@@ -22,7 +22,7 @@ public class CategoriesServiceImpl implements ICategoriesService {
     public List<CategoryDto> getAllCategories() {
         return repo
                 .findAll()
-                .stream().map(mapper :: toCategoryDto)
+                .stream().map(mapper::toCategoryDto)
                 .toList();
     }
 
@@ -35,7 +35,7 @@ public class CategoriesServiceImpl implements ICategoriesService {
     public void updateCategory(Long id, Category newCategory) {
         Category category = repo.findCategoryById(id).orElseThrow();
 
-        if(newCategory.getName() != null || newCategory.getName().equals("")) category.setName(newCategory.getName());
+        if (newCategory.getName() != null || newCategory.getName().equals("")) category.setName(newCategory.getName());
 
         repo.save(category);
     }

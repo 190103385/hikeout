@@ -22,15 +22,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 public class User implements UserDetails {
 
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "user_sequence"
-    )
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "user_sequence")
     @Column(name = "id")
     @Getter
     private Long id;
@@ -89,7 +82,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user")
     @Getter
     @Setter
     @JsonIgnore

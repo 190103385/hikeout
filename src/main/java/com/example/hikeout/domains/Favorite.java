@@ -19,25 +19,18 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 public class Favorite {
 
     @Id
-    @SequenceGenerator(
-            name = "favorite_sequence",
-            sequenceName = "favorite_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "favorite_sequence"
-    )
+    @SequenceGenerator(name = "favorite_sequence", sequenceName = "favorite_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "favorite_sequence")
     @Column(name = "id")
     @Getter
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @Getter
     private User user;
 
-    @OneToMany(mappedBy = "id")
+    @OneToOne(fetch = FetchType.EAGER)
     @Getter
-    private List<Location> locations;
+    private Location location;
 }

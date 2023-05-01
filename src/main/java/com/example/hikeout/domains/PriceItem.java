@@ -15,15 +15,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 public class PriceItem {
 
     @Id
-    @SequenceGenerator(
-            name = "price_item_sequence",
-            sequenceName = "price_item_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "price_item_sequence"
-    )
+    @SequenceGenerator(name = "price_item_sequence", sequenceName = "price_item_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "price_item_sequence")
     @Column(name = "id")
     @Getter
     private Long id;

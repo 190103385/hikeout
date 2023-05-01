@@ -18,7 +18,7 @@ public class ReviewsController {
     @GetMapping
     public String getAllReviews(Model model, @RequestParam(value = "name", required = false) String name) {
 
-        if(name != null && !name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             model.addAttribute("reviews", service.getReviewsByLocation(name));
         } else model.addAttribute("reviews", service.getAllReviews());
 

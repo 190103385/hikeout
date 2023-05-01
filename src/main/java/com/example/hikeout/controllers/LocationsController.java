@@ -72,14 +72,14 @@ public class LocationsController {
         return "redirect:/locations";
     }
 
-    @PostMapping("/update/{id}")
+    @GetMapping("/update/{id}")
     public String updateLocation(@PathVariable Long id, @ModelAttribute("location") Location newLocation) {
         service.updateLocation(id, newLocation);
 
         return "redirect:/locations";
     }
 
-    @PostMapping("/add")
+    @GetMapping("/add")
     public String insertLocation(@ModelAttribute("location") Location location) {
         service.insertLocation(location);
 

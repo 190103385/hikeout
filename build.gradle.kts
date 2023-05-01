@@ -25,16 +25,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
-    // Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
-    //'org.bouncycastle:bcprov-jdk15on:1.70',
-    // or 'io.jsonwebtoken:jjwt-gson:0.11.5' for gson
-//    implementation("org.flywaydb:flyway-core")
-//    implementation("org.hibernate:hibernate-core:4.1.4.Final")
-//    implementation("org.hibernate:hibernate-validator:6.0.16.Final")
 
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")

@@ -16,15 +16,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 public class Review {
 
     @Id
-    @SequenceGenerator(
-            name = "review_sequence",
-            sequenceName = "review_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "review_sequence"
-    )
+    @SequenceGenerator(name = "review_sequence", sequenceName = "review_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "review_sequence")
     @Column(name = "id")
     @Getter
     private Long id;

@@ -1,34 +1,25 @@
 package com.example.hikeout.domains;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
+
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "locations")
 public class Location {
 
-    public Location(Long id, String name) {}
-
     @Id
-    @SequenceGenerator(
-            name = "location_sequence",
-            sequenceName = "location_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "location_sequence"
-    )
+    @SequenceGenerator(name = "location_sequence", sequenceName = "location_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "location_sequence")
     @Column(name = "id")
     @Getter
     @Setter
@@ -85,8 +76,7 @@ public class Location {
     @JsonIgnoreProperties("location")
     private List<PriceItem> priceItems;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "favorites_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "location", cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @Getter
     @JsonIgnoreProperties("locations")
     private Favorite favorite;

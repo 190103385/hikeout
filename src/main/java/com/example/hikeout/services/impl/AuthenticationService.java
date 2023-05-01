@@ -40,7 +40,7 @@ public class AuthenticationService {
                 .role(UserRole.USER)
                 .build();
 
-        if(!emailValidator.test(user.getUsername()))
+        if (!emailValidator.test(user.getUsername()))
             throw new IllegalArgumentException("Invalid email");
 
         repository.save(user);

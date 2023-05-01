@@ -16,15 +16,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 public class Category {
 
     @Id
-    @SequenceGenerator(
-            name = "category_sequence",
-            sequenceName = "category_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "category_sequence"
-    )
+    @SequenceGenerator(name = "category_sequence", sequenceName = "category_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "category_sequence")
     @Column(name = "id")
     @Getter
     private Long id;

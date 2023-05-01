@@ -1,6 +1,5 @@
 package com.example.hikeout.restcontrollers;
 
-import com.example.hikeout.domains.Location;
 import com.example.hikeout.dto.LocationDto;
 import com.example.hikeout.services.ILocationsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +19,11 @@ public class RestLocationsController {
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "name", required = false) String name
     ) {
-        if(category != null && name != null) {
+        if (category != null && name != null) {
             return service.getLocationsByCategoryAndName(category, name);
-        }
-        else if(category != null) {
+        } else if (category != null) {
             return service.getLocationsByCategory(category);
-        }
-        else if(name != null) {
+        } else if (name != null) {
             return service.getLocationsByLocationName(name);
         }
 
@@ -42,9 +39,4 @@ public class RestLocationsController {
     public void deleteLocationById(@PathVariable Long id) {
         service.deleteLocationById(id);
     }
-
-//    @PostMapping
-//    public void upsertLocation(@ModelAttribute("location") Location location) {
-//        service.upsertLocation(location);
-//    }
 }

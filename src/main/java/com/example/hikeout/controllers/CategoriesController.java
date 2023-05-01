@@ -1,12 +1,14 @@
 package com.example.hikeout.controllers;
 
 import com.example.hikeout.domains.Category;
-import com.example.hikeout.domains.Location;
 import com.example.hikeout.services.ICategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/categories")
@@ -30,7 +32,7 @@ public class CategoriesController {
         return "add-category-view";
     }
 
-    @PostMapping("/add")
+    @GetMapping("/add")
     public String insertCategory(@ModelAttribute("category") Category category) {
         service.addCategory(category);
 
@@ -44,7 +46,7 @@ public class CategoriesController {
         return "update-category-view";
     }
 
-    @PostMapping("/update/{id}")
+    @GetMapping("/update/{id}")
     public String updateCategory(@PathVariable Long id, @ModelAttribute("category") Category newCategory) {
         service.updateCategory(id, newCategory);
 

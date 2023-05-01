@@ -2,7 +2,6 @@ package com.example.hikeout.dto;
 
 import com.example.hikeout.domains.Location;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,7 +17,6 @@ public class FavoritesDto {
     private Long userId;
 
     @Getter
-    @JsonIgnore
-    private List<Location> locations;
+    private Long locationId;
 
 }
