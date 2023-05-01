@@ -5,6 +5,9 @@ import com.example.hikeout.dto.LocationDto;
 
 import java.util.List;
 
+/**
+ * Interface Locations service.
+ */
 public interface ILocationsService {
     List<LocationDto> getAllLocations();
 

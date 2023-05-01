@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller to fetch, add, update, remove price items in management.
+ * */
 @Controller
 @RequestMapping("/priceItems")
 public class PriceItemsController {
@@ -19,6 +22,11 @@ public class PriceItemsController {
     @Autowired
     ILocationsService locationsService;
 
+    /**
+     * Fetch all price items, if optional parameters name and price are empty.
+     * If name present, returns elements containing name.
+     * If price present, returns elements which price is less than parameter.
+     * */
     @GetMapping
     public String getAllPriceItems(Model model,
                                    @RequestParam(value = "name", required = false) String name,
@@ -39,6 +47,9 @@ public class PriceItemsController {
         return "price-items-view";
     }
 
+    /**
+     * Redirect to add-price-item-view page. Add to model new price item and list of locations.
+     * */
     @GetMapping("/view/add")
     public String addPriceItemView(Model model) {
         PriceItem item = new PriceItem();
@@ -49,13 +60,19 @@ public class PriceItemsController {
         return "add-price-item-view";
     }
 
-    @GetMapping("/add")
+    /**
+     * Adds new price item.
+     * */
+    @PostMapping("/add")
     public String addPriceItem(@ModelAttribute("priceItem") PriceItem item) {
         service.insertPriceItem(item);
 
         return "redirect:/priceItems";
     }
 
+    /**
+     * Redirects to update-price-item-view page. Add to model price item found by ID and list of all locations.
+     * */
     @GetMapping("/view/update/{id}")
     public String updatePriceItemView(@PathVariable Long id, Model model) {
         model.addAttribute("priceItem", service.getById(id));
@@ -64,13 +81,19 @@ public class PriceItemsController {
         return "update-price-item-view";
     }
 
-    @GetMapping("/update/{id}")
+    /**
+     * Update price item with model attribute price item.
+     * */
+    @PostMapping("/update/{id}")
     public String updatePriceItem(@PathVariable Long id, @ModelAttribute("priceItem") PriceItem newItem) {
         service.updatePriceItem(id, newItem);
 
         return "redirect:/priceItems";
     }
 
+    /**
+     * Delete price item by ID.
+     * */
     @GetMapping("/delete/{id}")
     public String deletePriceItem(@PathVariable Long id) {
         service.deleteItemById(id);

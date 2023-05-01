@@ -7,12 +7,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository to fetch and delete categories.
+ * */
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    Category findCategoryByName(String name);
 
+    /**
+     * Finds category by category ID.
+     * */
     Optional<Category> findCategoryById(Long id);
 
+    /**
+     * Delete category by ID.
+     * */
     @Transactional
     void deleteCategoryById(Long id);
 }

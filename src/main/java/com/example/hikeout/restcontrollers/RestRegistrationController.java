@@ -12,19 +12,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST Controller to register and login.
+ * */
 @RestController
 @RequestMapping("api")
 @AllArgsConstructor
 public class RestRegistrationController {
 
+    /**
+     * Auth service.
+     * */
     @Autowired
     AuthenticationService service;
 
+    /**
+     * Register / create new user.
+     * */
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody UserDto request) {
         return ResponseEntity.ok(service.register(request));
     }
 
+    /**
+     * Login with existing user.
+     * */
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(service.authenticate(request));

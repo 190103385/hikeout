@@ -5,6 +5,9 @@ import com.example.hikeout.dto.CategoryDto;
 
 import java.util.List;
 
+/**
+ * Interface Categories service.
+ */
 public interface ICategoriesService {
     Category getCategory(Long id);
 

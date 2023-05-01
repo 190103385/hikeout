@@ -19,6 +19,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * User service, implements UserDetailsService.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserDetailsService {
@@ -26,18 +29,30 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private final UserRepository userRepository;
 
+    /**
+     * Get all users with role USER.
+     */
     public List<User> getAllUsers() {
         return userRepository.findUserByRoleEqualsOrderById(UserRole.USER);
     }
 
+    /**
+     * Get all users by username.
+     */
     public List<User> getUsersByUsername(String username, UserRole role) {
         return userRepository.findAllByEmailContainsIgnoreCaseAndRoleEqualsOrderById(username, role);
     }
 
+    /**
+     * Get all users with role ADMIN.
+     */
     public List<User> getAllModerators() {
         return userRepository.findUserByRoleEqualsOrderById(UserRole.ADMIN);
     }
 
+    /**
+     * Get user by email.
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
@@ -45,6 +60,9 @@ public class UserServiceImpl implements UserDetailsService {
         );
     }
 
+    /**
+     * Get user by ID.
+     */
     public UserDetails getUserById(Long id) {
         Optional<User> optionalUser = userRepository.findUserById(id);
 
@@ -55,6 +73,9 @@ public class UserServiceImpl implements UserDetailsService {
         return optionalUser.get();
     }
 
+    /**
+     * Get currently logged-in user.
+     */
     public User getCurrentlyLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) throw new UsernameNotFoundException("User not found");
@@ -69,6 +90,9 @@ public class UserServiceImpl implements UserDetailsService {
         return user;
     }
 
+    /**
+     * Update existing user.
+     */
     public void editUser(UserDto request) {
         User user = (User) getUserById(request.getId());
 
@@ -83,10 +107,16 @@ public class UserServiceImpl implements UserDetailsService {
         }
     }
 
+    /**
+     * Delete user by ID.
+     */
     public void deleteUser(Long id) {
         userRepository.deleteUserById(id);
     }
 
+    /**
+     * Block user.
+     */
     public void blockUser(Long id) {
         User user = userRepository.findUserById(id).orElseThrow();
 
@@ -96,6 +126,9 @@ public class UserServiceImpl implements UserDetailsService {
         userRepository.save(user);
     }
 
+    /**
+     * Unblock user.
+     */
     public void unblockUser(Long id) {
         User user = userRepository.findUserById(id).orElseThrow();
 
@@ -105,6 +138,9 @@ public class UserServiceImpl implements UserDetailsService {
         userRepository.save(user);
     }
 
+    /**
+     * Change use role to ADMIN.
+     */
     public void makeAdmin(Long id) {
         User user = userRepository.findUserById(id).orElseThrow();
 
@@ -113,6 +149,9 @@ public class UserServiceImpl implements UserDetailsService {
         userRepository.save(user);
     }
 
+    /**
+     * Change user role to USER.
+     */
     public void deleteAdmin(Long id) {
         User user = userRepository.findUserById(id).orElseThrow();
 

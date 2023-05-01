@@ -4,6 +4,9 @@ import com.example.hikeout.dto.ReviewDto;
 
 import java.util.List;
 
+/**
+ * Interface Reviews service.
+ */
 public interface IReviewsService {
     List<ReviewDto> getAllReviewsByLocationId(Long locationId);
 
@@ -12,8 +15,6 @@ public interface IReviewsService {
     List<ReviewDto> getAllReviews();
 
     void createReview(ReviewDto request);
-
-    void editReview(ReviewDto request);
 
     void deleteReviewById(Long id);
 }

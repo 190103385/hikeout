@@ -7,13 +7,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST Controller for locations.
+ * */
 @RestController
 @RequestMapping("api/locations")
 public class RestLocationsController {
 
+    /**
+     * Interface Locations service.
+     * */
     @Autowired
     private ILocationsService service;
 
+    /**
+     * Get all locations, if opt params are null.
+     * Filter by request params, if either one or both of them are present.
+     * */
     @GetMapping
     public List<LocationDto> getLocations(
             @RequestParam(value = "category", required = false) String category,
@@ -30,11 +40,17 @@ public class RestLocationsController {
         return service.getAllLocations();
     }
 
+    /**
+     * Get location by given ID.
+     * */
     @GetMapping("/{id}")
     public LocationDto getLocationById(@PathVariable Long id) {
         return service.getLocationById(id);
     }
 
+    /**
+     * Delete location by given ID.
+     * */
     @DeleteMapping("/{id}")
     public void deleteLocationById(@PathVariable Long id) {
         service.deleteLocationById(id);

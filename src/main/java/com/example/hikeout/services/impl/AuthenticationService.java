@@ -16,17 +16,22 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * Auth service.
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-
     private final EmailValidatorServiceImpl emailValidator;
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     * Creates and saves a new user from a given request.
+     */
     public AuthenticationResponse register(UserDto request) {
         var user = User.builder()
                 .firstName(request.getFirstName())
@@ -50,6 +55,9 @@ public class AuthenticationService {
                 .build();
     }
 
+    /**
+     * Login with existing user credentials. Success if email and password are correct. Creates new JWT token for each login session with specific expiration time.
+     */
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

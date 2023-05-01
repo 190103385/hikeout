@@ -45,6 +45,8 @@ public class SecurityConfig {
                         "/api/categories/**",
                         "/api/locations/**",
                         "/locations/**",
+                        "/locations/add/**",
+                        "/locations/update/**",
                         "/users/**",
                         "/categories/**",
                         "/management/**",
@@ -52,6 +54,9 @@ public class SecurityConfig {
                         "/reviews/**").permitAll()
                 .requestMatchers(HttpMethod.POST,
                         "/api/register",
+                        "/locations/**",
+                        "/categories/**",
+                        "/priceItems/**",
                         "/api/login").permitAll()
                 //Restricting for non-auth users
                 .anyRequest().authenticated()

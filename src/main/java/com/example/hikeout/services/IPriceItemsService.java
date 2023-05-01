@@ -5,6 +5,9 @@ import com.example.hikeout.dto.PriceItemDto;
 
 import java.util.List;
 
+/**
+ * Interface PriceItems service.
+ */
 public interface IPriceItemsService {
 
     List<PriceItemDto> findAll();
@@ -22,8 +25,6 @@ public interface IPriceItemsService {
     int getMaxAmount(Long id);
 
     int getMinAmount(Long id);
-
-    void upsertItem(PriceItemDto request);
 
     void deleteItemById(Long id);
 

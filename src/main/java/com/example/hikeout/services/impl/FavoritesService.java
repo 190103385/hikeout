@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of interface Favorites service.
+ */
 @Service
 public class FavoritesService implements IFavoritesService {
 
@@ -29,11 +32,17 @@ public class FavoritesService implements IFavoritesService {
     @Autowired
     private UserServiceImpl userService;
 
+    /**
+     * Get all favorites by ID and map to DTO.
+     */
     @Override
     public List<FavoritesDto> getAllFavoritesByUserId(Long id) {
         return repository.findAllByUserId(id).stream().map(mapper::toFavoritesDto).toList();
     }
 
+    /**
+     * Create and save new favorite.
+     */
     @Override
     public void saveToFavorites(FavoritesDto request) {
         repository.save(Favorite.builder()
@@ -42,6 +51,9 @@ public class FavoritesService implements IFavoritesService {
                 .build());
     }
 
+    /**
+     * Delete from favorites.
+     */
     @Override
     public void unfavorite(Long id) {
         repository.deleteFavoriteById(id);

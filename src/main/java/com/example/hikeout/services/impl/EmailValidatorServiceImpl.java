@@ -6,11 +6,17 @@ import org.springframework.stereotype.Service;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
+/**
+ * Service for email validation
+ */
 @Service
 public class EmailValidatorServiceImpl implements Predicate<String> {
     @Autowired
     UserServiceImpl userService;
 
+    /**
+     * Uses regex to check if given email is valid or not.
+     */
     @Override
     public boolean test(String email) {
         String regexPattern = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
