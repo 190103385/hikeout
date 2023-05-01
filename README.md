@@ -6,9 +6,9 @@ The purpose of the product is to make people's acquaintance with a new city/coun
 
 Client users who have our application are individuals, these are tourists, guests etc.
 
-## How to install
+## How to install / run
 Clone a repository with git clone command
 
 Run it locally from IDE
 
-If you have Docker in your machine, run docker-compose.yml file and run created container from Docker (preffered way)
+If you have Docker in your machine create jar file using gradle hikeout/Tasks/build/clean and build in the same directory, run docker-compose.yml file and run created container from Docker (preffered way)
